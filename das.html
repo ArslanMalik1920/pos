@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Luxury Kiosk</title>
+    <meta name="theme-color" content="#ff7236">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#ff7236',
+                        'accent-light': '#ff8f5a',
+                        'accent-dark': '#e55a1f',
+                        'bg-primary': '#ffffff',
+                        'bg-secondary': '#f9fafb',
+                        'text-primary': '#000000',
+                        'text-secondary': '#6b7280',
+                        'border-light': '#e5e7eb',
+                        'border-dark': '#d1d5db'
+                    },
+                    fontFamily: {
+                        'luxury': ['Josefin Sans', 'sans-serif'],
+                        'modern': ['Josefin Sans', 'sans-serif']
+                    },
+                    animation: {
+                        'slide-in': 'slideIn 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'pulse-gold': 'pulseGold 2s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+
+
+
+
+
+    <style>
+        /* Mobile-First Responsive Design */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        input,
+        textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        .welcome-screen-bg {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffffff 0%, #fef7f0 50%, #ffffff 100%);
+            position: relative;
+        }
+
+        .welcome-screen-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 114, 54, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 114, 54, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Luxury Typography */
+        .luxury-title {
+            background: linear-gradient(135deg, #ff7236 0%, #ff8f5a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 8px rgba(255, 114, 54, 0.1);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .mobile-padding {
+                padding: 1rem !important;
+            }
+
+            .mobile-text-sm {
+                font-size: 0.875rem !important;
+            }
+
+            .mobile-text-base {
+                font-size: 1rem !important;
+            }
+
+            .mobile-text-lg {
+                font-size: 1.125rem !important;
+            }
+
+            .mobile-text-xl {
+                font-size: 1.25rem !important;
+            }
+
+            .mobile-text-2xl {
+                font-size: 1.5rem !important;
+            }
+
+            .mobile-text-3xl {
+                font-size: 1.875rem !important;
+            }
+
+            .mobile-text-4xl {
+                font-size: 2.25rem !important;
+            }
+
+            .mobile-grid-1 {
+                grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+            }
+
+            .mobile-grid-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+
+            .mobile-gap-4 {
+                gap: 1rem !important;
+            }
+
+            .mobile-mb-6 {
+                margin-bottom: 1.5rem !important;
+            }
+
+            .mobile-mb-8 {
+                margin-bottom: 2rem !important;
+            }
+        }
+
+        /* Tablet Optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .tablet-grid-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+
+            .tablet-grid-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            }
+        }
+
+        /* Touch-friendly buttons */
+        .touch-button {
+            min-height: 48px;
+            min-width: 48px;
+            touch-action: manipulation;
+        }
+
+        /* Smooth scrolling */
+        /* Collection card refinements */
+        .collection-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(248, 245, 240, 0.85));
+        }
+
+        .collection-media {
+            height: 20rem;
+        }
+
+        .collection-media img {
+            transition: transform 0.6s ease;
+        }
+
+        .collection-card:hover .collection-media img {
+            transform: scale(1.08);
+        }
+
+        @media (max-width: 1024px) {
+            .collection-media {
+                height: 16rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .collection-media {
+                height: 14rem;
+            }
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar for mobile */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: black;
+            border-radius: 2px;
+        }
+
+        /* Loading animation */
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-bg-primary text-text-primary font-modern  ">
+    <!-- Floating Back Button -->
+    <button id="back-btn" onclick="goBack()"
+        class="fixed top-8 left-8 z-50 bg-bg-primary hover:bg-bg-secondary text-accent p-4 rounded-lg transition-all duration-300 shadow-lg border border-border-light hidden">
+        <i class="fas fa-arrow-left text-xl"></i>
+    </button>
+
+    <!-- Floating Cart Button -->
+    <button id="floating-cart" onclick="showScreen('cart')"
+        class="fixed top-8 right-8 z-50 bg-bg-primary hover:bg-bg-secondary text-accent px-6 py-4 rounded-lg transition-all duration-300 shadow-lg border border-border-light hidden">
+        <i class="fas fa-shopping-cart mr-2"></i>
+        <span id="floating-cart-count">0</span>
+        <div id="cart-pulse" class="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-pulse hidden"></div>
+    </button>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen welcome-screen-bg active min-h-screen flex flex-col">
+        <!-- Hero Section -->
+        <div class="relative flex-1 flex items-center justify-center min-h-screen">
+            <!-- Content -->
+            <div class="relative z-10 text-center mobile-padding px-4 sm:px-8 w-full max-w-4xl mx-auto">
+                <div class="mobile-mb-8 mb-12">
+                    <h1 class="luxury-title font-luxury mobile-text-4xl sm:text-6xl lg:text-8xl font-bold mb-4 sm:mb-6">
+                        LUXE</h1>
+                    <p class="mobile-text-lg sm:text-xl lg:text-2xl text-text-secondary font-light tracking-wide">
+                        Curated Excellence</p>
+                </div>
+
+                <div class="flex justify-center">
+                    <button onclick="showScreen('collections')"
+                        class="group touch-button bg-accent hover:bg-accent-light text-white mobile-text-base sm:text-xl px-8 sm:px-12 py-4 sm:py-6 rounded-lg font-semibold shadow-lg transition-all duration-300 transform active:scale-95 hover:scale-105">
+                        <span class="flex items-center justify-center gap-2 sm:gap-3">
+                            <i class="fas fa-shopping-bag"></i>
+                            Start Shopping
+                            <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Curated Collections -->
+    <div id="collections-screen" class="screen min-h-screen p-8 bg-bg-primary">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-luxury text-5xl font-bold text-accent mb-4">Curated Collections</h2>
+                <p class="text-xl text-text-secondary">Discover our exclusive selections</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
+                <!-- New Arrivals -->
+                <div onclick="showScreen('products', 'new-arrivals')"
+                    class="collection-card group cursor-pointer bg-bg-primary rounded-2xl overflow-hidden hover:shadow-xl border border-border-light transition-all duration-300 transform hover:scale-105">
+                    <div class="collection-media relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80"
+                            alt="New arrivals collection"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 z-0 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 z-10">
+                        </div>
+                        <div class="absolute bottom-6 left-6 right-6 z-20">
+                            <h3 class="font-luxury text-3xl font-bold text-white mb-2">New Arrivals</h3>
+                            <p class="text-white/80">Fresh from the runway</p>
+                        </div>
+                        <i
+                            class="fas fa-sparkles absolute top-6 right-6 text-white text-2xl drop-shadow-lg group-hover:rotate-12 transition-transform z-20"></i>
+                    </div>
+                </div>
+
+                <!-- Exclusive -->
+                <div onclick="showScreen('products', 'exclusive')"
+                    class="collection-card group cursor-pointer bg-bg-primary rounded-2xl overflow-hidden hover:shadow-xl border border-border-light transition-all duration-300 transform hover:scale-105">
+                    <div class="collection-media relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80"
+                            alt="Exclusive jewelry selection"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 z-0 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-black/20 z-10">
+                        </div>
+                        <div class="absolute bottom-6 left-6 right-6 z-20">
+                            <h3 class="font-luxury text-3xl font-bold text-white mb-2">Exclusive</h3>
+                            <p class="text-white/80">Limited edition pieces</p>
+                        </div>
+                        <i
+                            class="fas fa-crown absolute top-6 right-6 text-white text-2xl drop-shadow-lg group-hover:rotate-12 transition-transform z-20"></i>
+                    </div>
+                </div>
+
+                <!-- Jetex Exclusives -->
+                <div onclick="showScreen('products', 'jetex')"
+                    class="collection-card group cursor-pointer bg-bg-primary rounded-2xl overflow-hidden hover:shadow-xl border border-border-light transition-all duration-300 transform hover:scale-105">
+                    <div class="collection-media relative overflow-hidden">
+                        <img src="img/bag1.jpg" alt="Jetex exclusive merchandise"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 z-0 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/15 z-10">
+                        </div>
+                        <div class="absolute bottom-6 left-6 right-6 z-20">
+                            <h3 class="font-luxury text-3xl font-bold text-white mb-2">Jetex Exclusives</h3>
+                            <p class="text-white/80">Signature travel essentials</p>
+                        </div>
+                        <i
+                            class="fas fa-plane-departure absolute top-6 right-6 text-white text-2xl drop-shadow-lg group-hover:-translate-y-1 transition-transform z-20"></i>
+                    </div>
+                </div>
+
+                <!-- Best Sellers -->
+                <div onclick="showScreen('products', 'best-sellers')"
+                    class="collection-card group cursor-pointer bg-bg-primary rounded-2xl overflow-hidden hover:shadow-xl border border-border-light transition-all duration-300 transform hover:scale-105">
+                    <div class="collection-media relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80"
+                            alt="Best selling luxury watch"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 z-0 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-black/20 z-10">
+                        </div>
+                        <div class="absolute bottom-6 left-6 right-6 z-20">
+                            <h3 class="font-luxury text-3xl font-bold text-white mb-2">Best Sellers</h3>
+                            <p class="text-white/80">Customer favorites</p>
+                        </div>
+                        <i
+                            class="fas fa-fire absolute top-6 right-6 text-white text-2xl drop-shadow-lg group-hover:rotate-12 transition-transform z-20"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="products-screen" class="screen min-h-screen p-8 bg-bg-primary">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between mb-2 py-4 sticky top-0 z-50 bg-white">
+                <div>
+                    <h2 id="category-title" class="font-luxury text-4xl font-bold text-accent mb-2">Products</h2>
+                    <p class="text-text-secondary">Discover our luxury collection</p>
+                </div>
+                <!-- <button onclick="showScreen('collections')"
+                    class="text-accent hover:text-accent-light transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Collections
+                </button> -->
+            </div>
+
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                <!-- Products will be inserted here -->
+            </div>
+
+            <!-- Cart Summary Bar -->
+            <div style="display: none;"
+                class="fixed d-none bottom-8 left-1/2 transform -translate-x-1/2 bg-bg-primary rounded-lg px-8 py-4 shadow-lg border border-border-light">
+                <button onclick="showScreen('cart')"
+                    class="flex items-center gap-4 text-accent hover:text-accent-light transition-colors">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span class="font-semibold">View Cart (<span id="cart-count">0</span>)</span>
+                    <span id="cart-total" class="text-text-primary">$0.00</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Popup -->
+    <div id="product-popup"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div
+            class="bg-bg-primary rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden border border-border-light shadow-xl">
+            <div class="flex h-full">
+                <!-- Image Gallery -->
+                <div class="flex-1 relative">
+                    <button onclick="closeProductPopup()"
+                        class="absolute top-4 right-4 z-10 bg-bg-secondary hover:bg-border-light text-text-primary p-3 rounded-lg transition-all">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+
+                    <div id="popup-image-container" class="h-96 relative overflow-hidden">
+                        <div id="popup-image-slider" class="flex transition-transform duration-300">
+                            <!-- Images will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Image Navigation -->
+                    <button onclick="previousPopupImage()"
+                        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-bg-secondary hover:bg-border-light text-text-primary p-3 rounded-lg transition-all">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button onclick="nextPopupImage()"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-bg-secondary hover:bg-border-light text-text-primary p-3 rounded-lg transition-all">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <!-- Image Dots -->
+                    <div id="image-dots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                        <!-- Dots will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="w-96 p-8  bg-bg-secondary">
+                    <div id="popup-product-info">
+                        <!-- Product info will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- 
+Cart Review -->
+    <div id="cart-screen" class="screen min-h-screen p-8 bg-bg-primary">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-luxury text-4xl font-bold text-accent">Your Cart</h2>
+                </button>
+          
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Cart Items -->
+                <div class="lg:col-span-2">
+                    <div id="cart-items" class="space-y-4 max-h-[500px] overflow-auto">
+                        <!-- Cart items will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Delivery & Summary -->
+                <div class="bg-bg-secondary rounded-lg p-6 border border-border-light">
+                    <h3 class="font-luxury text-2xl font-bold text-accent mb-6">Delivery Options</h3>
+
+                    <div class="space-y-4 mb-6">
+                        <label
+                            class="flex items-center p-4 bg-bg-primary rounded-lg cursor-pointer hover:bg-bg-secondary transition-colors border border-border-light">
+                            <input type="radio" name="delivery" value="pickup" class="mr-4 text-accent" checked>
+                            <div>
+                                <div class="font-semibold text-text-primary">Pick Up Now</div>
+                                <div class="text-text-secondary text-sm">Ready in 15 minutes</div>
+                            </div>
+                        </label>
+
+                        <label
+                            class="flex items-center p-4 bg-bg-primary rounded-lg cursor-pointer hover:bg-bg-secondary transition-colors border border-border-light">
+                            <input type="radio" name="delivery" value="shipping" class="mr-4 text-accent">
+                            <div>
+                                <div class="font-semibold text-text-primary">Ship to Home</div>
+                                <div class="text-text-secondary text-sm">2-3 business days</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="border-t border-border-light pt-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-text-secondary">Subtotal</span>
+                            <span id="subtotal" class="text-text-primary">$0.00</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-text-secondary">Tax</span>
+                            <span id="tax" class="text-text-primary">$0.00</span>
+                        </div>
+                        <div
+                            class="flex justify-between text-xl font-bold text-accent border-t border-border-light pt-2">
+                            <span>Total</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+
+                    <button onclick="showScreen('checkout')"
+                        class="w-full bg-accent text-white px-6 py-4 rounded-lg font-semibold hover:bg-accent-light transition-colors mt-6">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Screen -->
+    <div id="checkout-screen" class="screen min-h-screen p-8 bg-bg-primary">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="font-luxury text-4xl font-bold text-accent mb-2">Checkout</h2>
+                <p class="text-text-secondary">Complete your luxury purchase</p>
+            </div>
+
+            <div class="bg-bg-secondary rounded-lg p-8 border border-border-light">
+                <!-- Customer & Passenger Information -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-accent mb-4">Customer Information</h3>
+
+                    <!-- Booking Search -->
+                    <div class="mb-6">
+                        <label class="block text-sm text-text-secondary mb-2">Search Passenger by Booking
+                            Reference</label>
+                        <div class="flex gap-4">
+                            <input type="text" id="booking-ref" placeholder="Enter booking reference (e.g., ABC123)"
+                                class="flex-1 bg-bg-primary text-text-primary p-4 rounded-lg border border-border-light focus:border-accent focus:outline-none transition-colors"
+                                oninput="searchBooking(this.value)">
+                            <button onclick="searchBooking(document.getElementById('booking-ref').value)"
+                                class="bg-accent text-white px-6 py-4 rounded-lg font-semibold hover:bg-accent-light transition-colors">
+                                <i class="fas fa-search mr-2"></i> Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Passenger List -->
+                    <div id="passenger-list" class="hidden mb-6">
+                        <label class="block text-sm text-text-secondary mb-2">Select Passenger</label>
+                        <div id="passenger-dropdown"
+                            class="bg-bg-primary rounded-lg border border-border-light max-h-40 overflow-y-auto">
+                            <!-- Passenger options will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Selected Passenger Display -->
+                    <div id="selected-passenger-display"
+                        class="hidden bg-bg-primary rounded-lg p-4 border border-accent mb-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="font-semibold text-accent" id="display-name">John Doe</div>
+                                <div class="text-sm text-text-secondary" id="display-details">Flight AA123 â€¢ Seat 12A
+                                    â€¢
+                                    New
+                                    York</div>
+                                <div class="text-xs text-text-secondary" id="display-contact">john.doe@email.com â€¢ +1
+                                    234 567
+                                    8900</div>
+                            </div>
+                            <button onclick="clearSelectedPassenger()"
+                                class="text-text-secondary hover:text-text-primary transition-colors">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer Details Form (Hidden by default) -->
+                    <div id="customer-form" class="hidden space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="customer-name" placeholder="Full Name"
+                                class="bg-bg-primary text-text-primary p-4 rounded-lg border border-border-light focus:border-accent focus:outline-none transition-colors">
+                            <input type="email" id="customer-email" placeholder="Email Address"
+                                class="bg-bg-primary text-text-primary p-4 rounded-lg border border-border-light focus:border-accent focus:outline-none transition-colors">
+                        </div>
+                        <input type="tel" id="customer-phone" placeholder="Phone Number (for SMS receipt)"
+                            class="w-full bg-bg-primary text-text-primary p-4 rounded-lg border border-border-light focus:border-accent focus:outline-none transition-colors">
+
+                        <!-- Flight Details (shown when passenger selected) -->
+                        <div id="flight-details" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <input type="text" id="flight-number" placeholder="Flight Number" readonly
+                                class="bg-bg-secondary text-text-secondary p-4 rounded-lg border border-border-light">
+                            <input type="text" id="seat-number" placeholder="Seat Number" readonly
+                                class="bg-bg-secondary text-text-secondary p-4 rounded-lg border border-border-light">
+                            <input type="text" id="destination" placeholder="Destination" readonly
+                                class="bg-bg-secondary text-text-secondary p-4 rounded-lg border border-border-light">
+                        </div>
+                    </div>
+
+                    <!-- Manual Entry Toggle -->
+                    <div class="flex items-center justify-between mt-4">
+                        <span class="text-text-secondary">Can't find your booking?</span>
+                        <button type="button" id="manual-entry-btn" onclick="toggleManualEntry()"
+                            class="text-accent hover:text-accent-light transition-colors">
+                            <i class="fas fa-edit mr-1"></i> Enter Manually
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-accent mb-4">Payment Method</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Card Tap -->
+                        <div
+                            class="payment-method bg-bg-primary p-6 rounded-lg text-center cursor-pointer hover:bg-bg-secondary transition-colors border-2 border-border-light hover:border-accent">
+                            <i class="fas fa-credit-card text-3xl text-accent mb-3"></i>
+                            <div class="font-semibold text-text-primary">Card Tap</div>
+                            <div class="text-sm text-text-secondary">Tap your card</div>
+                        </div>
+
+                        <!-- QR Pay -->
+                        <div
+                            class="payment-method bg-bg-primary p-6 rounded-lg text-center cursor-pointer hover:bg-bg-secondary transition-colors border-2 border-border-light hover:border-accent">
+                            <i class="fas fa-qrcode text-3xl text-accent mb-3"></i>
+                            <div class="font-semibold text-text-primary">QR Pay</div>
+                            <div class="text-sm text-text-secondary">Scan to pay</div>
+                        </div>
+
+                        <!-- NFC -->
+                        <div
+                            class="payment-method bg-bg-primary p-6 rounded-lg text-center cursor-pointer hover:bg-bg-secondary transition-colors border-2 border-border-light hover:border-accent">
+                            <i class="fas fa-wifi text-3xl text-accent mb-3"></i>
+                            <div class="font-semibold text-text-primary">NFC</div>
+                            <div class="text-sm text-text-secondary">Contactless pay</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loyalty Card -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-accent mb-4">Loyalty Program (Optional)</h3>
+                    <div class="flex gap-4">
+                        <input type="text" placeholder="Loyalty Card Number"
+                            class="flex-1 bg-bg-primary text-text-primary p-4 rounded-lg border border-border-light focus:border-accent focus:outline-none transition-colors">
+                        <button
+                            class="bg-accent text-white px-6 py-4 rounded-lg font-semibold hover:bg-accent-light transition-colors">
+                            <i class="fas fa-camera mr-2"></i> Scan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Complete Order -->
+                <button onclick="showScreen('confirmation')"
+                    class="w-full bg-accent text-white px-8 py-6 rounded-lg text-xl font-bold hover:bg-accent-light transition-all transform hover:scale-105 shadow-lg">
+                    Complete Order - <span id="final-total">$0.00</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation -->
+    <div id="confirmation-screen" class="screen min-h-screen flex items-center justify-center p-8 bg-bg-primary">
+        <div class="text-center max-w-2xl mx-auto">
+            <div class="mb-8">
+                <i class="fas fa-check-circle text-8xl text-accent mb-6"></i>
+                <h1 class="font-luxury text-6xl font-bold text-accent mb-4">Thank You!</h1>
+                <p class="text-xl text-text-secondary mb-8">Your luxury purchase has been confirmed</p>
+            </div>
+
+            <div class="bg-bg-secondary rounded-lg p-8 mb-8 border border-border-light">
+                <div class="text-accent font-luxury text-2xl font-bold mb-4">Order Number</div>
+                <div id="order-number" class="text-4xl font-bold text-accent mb-6">#LUX-2024-001</div>
+
+                <div class="text-text-secondary mb-6">
+                    <p>A receipt has been sent to your email and phone</p>
+                    <p>Estimated pickup time: 15 minutes</p>
+                </div>
+            </div>
+
+            <!-- Receipt Options -->
+            <div class="flex justify-center gap-4 mb-8">
+                <button
+                    class="bg-bg-secondary hover:bg-border-light text-text-primary px-6 py-3 rounded-lg transition-colors border border-border-light">
+                    <i class="fas fa-envelope mr-2"></i> Email Receipt
+                </button>
+                <button
+                    class="bg-bg-secondary hover:bg-border-light text-text-primary px-6 py-3 rounded-lg transition-colors border border-border-light">
+                    <i class="fas fa-sms mr-2"></i> SMS Receipt
+                </button>
+                <button
+                    class="bg-bg-secondary hover:bg-border-light text-text-primary px-6 py-3 rounded-lg transition-colors border border-border-light">
+                    <i class="fas fa-print mr-2"></i> Print Receipt
+                </button>
+            </div>
+
+            <button onclick="showScreen('welcome')"
+                class="bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:bg-accent-light transition-colors">
+                <i class="fas fa-home mr-2"></i> Start New Order
+            </button>
+        </div>
+    </div>
+    <script>
+
+        // Enhanced product data with multiple images
+        const products = {
+            'new-arrivals': [
+                {
+                    id: 1,
+                    name: 'Silk Evening Gown',
+                    price: 2499,
+                    images: [
+                        'https://images.unsplash.com/photo-1566479179817-c0ae8e5b4b8e?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: 'Elegant silk evening gown with hand-embroidered details',
+                    details: 'Premium silk fabric with intricate beadwork. Perfect for special occasions.'
+                },
+                {
+                    id: 2,
+                    name: 'Diamond Tennis Bracelet',
+                    price: 4999,
+                    images: [
+                        'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: 'Exquisite diamond tennis bracelet in 18k white gold',
+                    details: '2.5 carats of brilliant cut diamonds set in 18k white gold.'
+                },
+                {
+                    id: 3,
+                    name: 'Cashmere Coat',
+                    price: 1899,
+                    images: [
+                        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: 'Luxurious cashmere coat with Italian craftsmanship',
+                    details: '100% pure cashmere from Mongolia, tailored in Italy.'
+                }
+            ],
+            'exclusive': [
+                {
+                    id: 4,
+                    name: 'Limited Edition Watch',
+                    price: 8999,
+                    images: [
+                        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: 'Swiss-made limited edition timepiece, only 100 pieces worldwide',
+                    details: 'Automatic movement with 42-hour power reserve. Sapphire crystal.'
+                },
+                {
+                    id: 5,
+                    name: 'Designer Handbag',
+                    price: 3299,
+                    images: [
+                        'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: 'Exclusive designer handbag crafted from premium leather',
+                    details: 'Hand-stitched Italian leather with gold-plated hardware.'
+                },
+                {
+                    id: 6,
+                    name: 'Pearl Necklace',
+                    price: 2799,
+                    images: [
+                        'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: 'Tahitian pearl necklace with 18k gold clasp',
+                    details: 'Rare black Tahitian pearls, 8-10mm diameter.'
+                }
+            ],
+            'best-sellers': [
+                {
+                    id: 7,
+                    name: 'Luxury Perfume',
+                    price: 299,
+                    images: [
+                        'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1588405748880-12d1d2a59d32?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1563170351-be82bc888aa4?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: 'Signature fragrance with rare botanical essences',
+                    details: 'Handcrafted with rare orchid and sandalwood. 50ml bottle.'
+                },
+                {
+                    id: 8,
+                    name: 'Silk Scarf',
+                    price: 599,
+                    images: [
+                        'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1571945153237-4929e783af4a?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: 'Hand-painted silk scarf by renowned artist',
+                    details: 'Pure mulberry silk with hand-painted floral design.'
+                },
+                {
+                    id: 9,
+                    name: 'Gold Earrings',
+                    price: 1299,
+                    images: [
+                        'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1200&q=80',
+                        'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=1200&q=80'
+                    ],
+                    description: '18k gold earrings with precious gemstones',
+                    details: 'Handcrafted 18k gold with emerald and diamond accents.'
+                }
+            ],
+            'jetex': [
+                {
+                    id: 10,
+                    name: 'Jetex Luxe Duffel',
+                    price: 749,
+                    images: [
+                        'img/bag1.jpg',
+                        'img/bag2.jpg',
+                        'img/bag3.jpg'
+                    ],
+                    description: 'Premium leather duffel in Jetex signature palette',
+                    details: 'Roomy main compartment with gold hardware and detachable strap.'
+                },
+                {
+                    id: 11,
+                    name: 'Jetex City Tote',
+                    price: 689,
+                    images: [
+                        'img/bag4.jpg',
+                        'img/bag5.jpg'
+                    ],
+                    description: 'Structured tote designed for effortless airport transitions',
+                    details: 'Magnetic closure, padded laptop sleeve, and jet-black lining.'
+                },
+                {
+                    id: 12,
+                    name: 'Jetex Hydration Bottle',
+                    price: 149,
+                    images: [
+                        'img/bottle.jpg'
+                    ],
+                    description: 'Double-walled insulated bottle with gold accented cap',
+                    details: 'Keeps beverages hot or cold for 12 hours; spill-proof seal.'
+                },
+                {
+                    id: 13,
+                    name: 'Jetex Aviation Cap Set',
+                    price: 199,
+                    images: [
+                        'img/cap1.jpg',
+                        'img/cap2.jpg',
+                        'img/cap3.jpg',
+                        'img/cap4.jpg'
+                    ],
+                    description: 'Curated set of Jetex flight caps in four colorways',
+                    details: 'Adjustable strap with embroidered Jetex crest and tonal stitching.'
+                },
+                {
+                    id: 14,
+                    name: 'Jetex Desert Hand Fan',
+                    price: 89,
+                    images: [
+                        'img/handfan.jpg'
+                    ],
+                    description: 'Handcrafted bamboo fan featuring Jetex patterned silk',
+                    details: 'Folds into travel pouch; perfect for warm terminals and lounges.'
+                },
+                {
+                    id: 15,
+                    name: 'Jetex Travel Loafers',
+                    price: 429,
+                    images: [
+                        'img/shoes.jpg'
+                    ],
+                    description: 'Supple leather loafers engineered for in-flight comfort',
+                    details: 'Memory foam insole with anti-slip outsole for quick transits.'
+                }
+            ]
+        };
+
+        // Sample passenger data for booking system
+        const sampleBookings = {
+            'ABC123': [
+                {
+                    name: 'John Smith',
+                    seat: '12A',
+                    flight: 'AA123',
+                    destination: 'New York',
+                    email: 'john.smith@email.com',
+                    phone: '+1 234 567 8901'
+                },
+                {
+                    name: 'Jane Smith',
+                    seat: '12B',
+                    flight: 'AA123',
+                    destination: 'New York',
+                    email: 'jane.smith@email.com',
+                    phone: '+1 234 567 8902'
+                }
+            ],
+            'DEF456': [
+                {
+                    name: 'Michael Johnson',
+                    seat: '8C',
+                    flight: 'BA456',
+                    destination: 'London',
+                    email: 'michael.johnson@email.com',
+                    phone: '+44 20 7946 0958'
+                },
+                {
+                    name: 'Sarah Johnson',
+                    seat: '8D',
+                    flight: 'BA456',
+                    destination: 'London',
+                    email: 'sarah.johnson@email.com',
+                    phone: '+44 20 7946 0959'
+                }
+            ],
+            'GHI789': [
+                {
+                    name: 'David Wilson',
+                    seat: '15F',
+                    flight: 'LH789',
+                    destination: 'Frankfurt',
+                    email: 'david.wilson@email.com',
+                    phone: '+49 30 12345678'
+                }
+            ],
+            'JKL012': [
+                {
+                    name: 'Emma Davis',
+                    seat: '3A',
+                    flight: 'EK345',
+                    destination: 'Dubai',
+                    email: 'emma.davis@email.com',
+                    phone: '+971 4 123 4567'
+                },
+                {
+                    name: 'Robert Davis',
+                    seat: '3B',
+                    flight: 'EK345',
+                    destination: 'Dubai',
+                    email: 'robert.davis@email.com',
+                    phone: '+971 4 123 4568'
+                }
+            ],
+            'MNO345': [
+                {
+                    name: 'Lisa Chen',
+                    seat: '7K',
+                    flight: 'SQ678',
+                    destination: 'Singapore',
+                    email: 'lisa.chen@email.com',
+                    phone: '+65 6123 4567'
+                }
+            ]
+        };
+
+        let currentCategory = '';
+        let currentProductIndex = 0;
+        let cart = [];
+        let currentScreen = 'welcome';
+        let currentPopupImageIndex = 0;
+        let currentPopupProduct = null;
+        let selectedPassenger = null;
+
+        // Navigation system
+        const screenFlow = {
+            'welcome': { title: 'Welcome', progress: 0, showNav: false },
+            'collections': { title: 'Collections', progress: 20, showNav: true },
+            'products': { title: 'Products', progress: 40, showNav: true },
+            'cart': { title: 'Cart', progress: 60, showNav: true },
+            'checkout': { title: 'Checkout', progress: 80, showNav: true },
+            'confirmation': { title: 'Complete', progress: 100, showNav: true }
+        };
+
+        // Screen management with enhanced navigation
+        function showScreen(screenId, category = null) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+                screen.style.opacity = '0';
+                screen.style.transform = 'translateY(20px)';
+            });
+
+            // Show target screen with animation
+            setTimeout(() => {
+                const targetScreen = document.getElementById(screenId + '-screen');
+                targetScreen.classList.add('active');
+                targetScreen.style.opacity = '1';
+                targetScreen.style.transform = 'translateY(0)';
+            }, 150);
+
+            currentScreen = screenId;
+            updateNavigation(screenId, category);
+
+            if (screenId === 'products' && category) {
+                currentCategory = category;
+                loadProducts(category);
+            } else if (screenId === 'cart') {
+                updateCartDisplay();
+            } else if (screenId === 'checkout') {
+                updateCheckoutTotal();
+            } else if (screenId === 'confirmation') {
+                generateOrderNumber();
+            }
+        }
+
+        function updateNavigation(screenId, category = null) {
+            const backBtn = document.getElementById('back-btn');
+            const floatingCart = document.getElementById('floating-cart');
+            const screenInfo = screenFlow[screenId];
+
+            // Show/hide floating buttons based on screen
+            if (screenInfo.showNav) {
+                backBtn.classList.remove('hidden');
+                floatingCart.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
+                floatingCart.classList.add('hidden');
+            }
+
+            // Hide cart button on cart and checkout screens
+            if (screenId === 'cart' || screenId === 'checkout') {
+                floatingCart.classList.add('hidden');
+            }
+        }
+
+        function updateBreadcrumb(screenId, category = null) {
+            const breadcrumb = document.getElementById('breadcrumb');
+            let breadcrumbHTML = '';
+
+            switch (screenId) {
+                case 'collections':
+                    breadcrumbHTML = `
+                        <span class="text-gold cursor-pointer" onclick="showScreen('welcome')">Home</span>
+                        <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
+                        <span class="text-white">Collections</span>
+                    `;
+                    break;
+                case 'products':
+                    const categoryName = category ? category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Products';
+                    breadcrumbHTML = `
+                        <span class="text-gold cursor-pointer" onclick="showScreen('welcome')">Home</span>
+                        <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
+                        <span class="text-gold cursor-pointer" onclick="showScreen('collections')">Collections</span>
+                        <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
+                        <span class="text-white">${categoryName}</span>
+                    `;
+                    break;
+                case 'cart':
+                    breadcrumbHTML = `
+                        <span class="text-gold cursor-pointer" onclick="showScreen('welcome')">Home</span>
+                        <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
+                        <span class="text-white">Cart</span>
+                    `;
+                    break;
+                case 'checkout':
+                    breadcrumbHTML = `
+                        <span class="text-gold cursor-pointer" onclick="showScreen('welcome')">Home</span>
+                        <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
+                        <span class="text-gold cursor-pointer" onclick="showScreen('cart')">Cart</span>
+                        <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
+                        <span class="text-white">Checkout</span>
+                    `;
+                    break;
+                case 'confirmation':
+                    breadcrumbHTML = `
+                        <span class="text-gold cursor-pointer" onclick="showScreen('welcome')">Home</span>
+                        <i class="fas fa-chevron-right text-gray-500 text-xs"></i>
+                        <span class="text-white">Order Complete</span>
+                    `;
+                    break;
+                default:
+                    breadcrumbHTML = '<span class="text-white">Home</span>';
+            }
+
+            document.getElementById('breadcrumb').innerHTML = breadcrumbHTML;
+        }
+
+        // Product Grid Management
+        function loadProducts(category) {
+            const productList = products[category];
+            currentCategory = category;
+
+            // Update category title
+            const categoryTitle = document.getElementById('category-title');
+            const categoryName = category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+            categoryTitle.textContent = categoryName;
+
+            // Load product grid
+            const productGrid = document.getElementById('product-grid');
+            productGrid.innerHTML = '';
+
+            productList.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'bg-bg-primary border border-border-light rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300';
+
+                const mainImage = product.images ? product.images[0] : product.image;
+
+                productCard.innerHTML = `
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="${mainImage}" alt="${product.name}" class="w-full h-full object-cover">
+                        
+                        <!-- View Details Button -->
+                        <button onclick="openProductPopup(${product.id})" 
+                            class="absolute top-4 right-4 bg-bg-primary hover:bg-bg-secondary text-text-primary p-2 rounded-lg shadow-md transition-all duration-300">
+                            <i class="fas fa-eye text-sm"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="font-luxury text-lg font-bold text-text-primary mb-2">${product.name}</h3>
+                        <p class="text-text-secondary text-sm mb-3 line-clamp-2">${product.description}</p>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xl font-bold text-accent">$${product.price.toLocaleString()}</span>
+                            <button onclick="openProductPopup(${product.id})" class="text-text-secondary hover:text-accent transition-colors">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Always Visible Add to Cart Button -->
+                        <button onclick="addToCart(${product.id})" 
+                            class="w-full bg-accent hover:bg-accent-light text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 transform active:scale-95 shadow-md">
+                            <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                        </button>
+                    </div>
+                `;
+
+                productGrid.appendChild(productCard);
+            });
+
+            updateCartDisplay();
+        }
+
+        function updateProductInfo() {
+            const product = products[currentCategory][currentProductIndex];
+            const productInfo = document.getElementById('product-info');
+
+            productInfo.innerHTML = `
+                <div class="mb-6">
+                    <h3 class="font-luxury text-3xl font-bold text-gold mb-2">${product.name}</h3>
+                    <p class="text-gray-300 mb-4">${product.description}</p>
+                    <div class="text-2xl font-bold text-gold">$${product.price.toLocaleString()}</div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <button onclick="addToCart(${product.id})" class="flex-1 bg-accent hover:bg-accent-light text-white px-6 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                    </button>
+                </div>
+                
+                <div class="mt-6 text-sm text-gray-400">
+                    <div class="flex justify-between mb-2">
+                        <span>Material:</span>
+                        <span>Premium Quality</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Availability:</span>
+                        <span class="text-green-400">In Stock</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Shipping:</span>
+                        <span>Free Worldwide</span>
+                    </div>
+                </div>
+            `;
+
+            updateProductIndicators();
+        }
+
+        function nextProduct() {
+            const productList = products[currentCategory];
+            const slides = document.querySelectorAll('#product-carousel > div');
+
+            slides[currentProductIndex].classList.add('-translate-x-full');
+            slides[currentProductIndex].classList.remove('translate-x-0');
+
+            currentProductIndex = (currentProductIndex + 1) % productList.length;
+
+            slides[currentProductIndex].classList.remove('translate-x-full');
+            slides[currentProductIndex].classList.add('translate-x-0');
+
+            updateProductInfo();
+        }
+
+        function previousProduct() {
+            const productList = products[currentCategory];
+            const slides = document.querySelectorAll('#product-carousel > div');
+
+            slides[currentProductIndex].classList.add('translate-x-full');
+            slides[currentProductIndex].classList.remove('translate-x-0');
+
+            currentProductIndex = currentProductIndex === 0 ? productList.length - 1 : currentProductIndex - 1;
+
+            slides[currentProductIndex].classList.remove('-translate-x-full');
+            slides[currentProductIndex].classList.add('translate-x-0');
+
+            updateProductInfo();
+        }
+
+        // Cart management
+        function addToCart(productId) {
+            const product = findProductById(productId);
+            if (!product) return;
+
+            const mainImage = product.images && product.images.length > 0 ? product.images[0] : product.image;
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+                if (!existingItem.image && mainImage) {
+                    existingItem.image = mainImage;
+                }
+            } else {
+                cart.push({ ...product, image: mainImage, quantity: 1 });
+            }
+
+            updateCartCount();
+
+            // Show success animation
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check mr-2"></i> Added!';
+            button.classList.add('bg-green-500');
+
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('bg-green-500');
+            }, 1000);
+        }
+
+        function findProductById(id) {
+            for (const category in products) {
+                const product = products[category].find(p => p.id === id);
+                if (product) return product;
+            }
+            return null;
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('floating-cart-count').textContent = count;
+
+            // Show cart pulse animation when items are added
+            const cartPulse = document.getElementById('cart-pulse');
+            if (count > 0) {
+                cartPulse.classList.remove('hidden');
+            } else {
+                cartPulse.classList.add('hidden');
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fas fa-shopping-cart text-6xl text-text-secondary mb-4"></i>
+                        <p class="text-xl text-text-secondary">Your cart is empty</p>
+                    </div>
+                `;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="bg-bg-secondary rounded-lg p-4 flex items-center gap-4 border border-border-light">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-text-primary">${item.name}</h4>
+                            <p class="text-text-secondary">$${item.price.toLocaleString()}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="bg-accent text-white w-8 h-8 rounded-lg hover:bg-accent transition-colors">-</button>
+                            <span class="text-text-primary font-semibold min-w-[2rem] text-center">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="bg-accent text-white w-8 h-8 rounded-lg hover:bg-accent transition-colors">+</button>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-600 transition-colors p-2">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            updateCartTotals();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartDisplay();
+                    updateCartCount();
+                }
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartDisplay();
+            updateCartCount();
+        }
+
+        function updateCartTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.08; // 8% tax
+            const total = subtotal + tax;
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString()}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toLocaleString()}`;
+        }
+
+        function updateCheckoutTotal() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.08;
+            const total = subtotal + tax;
+            document.getElementById('final-total').textContent = `$${total.toLocaleString()}`;
+        }
+
+        function generateOrderNumber() {
+            const orderNumber = '#LUX-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 10000).toString().padStart(3, '0');
+            document.getElementById('order-number').textContent = orderNumber;
+        }
+
+        // Enhanced navigation features
+        document.addEventListener('DOMContentLoaded', function () {
+            // Payment method selection
+            document.addEventListener('click', function (e) {
+                if (e.target.closest('.payment-method')) {
+                    document.querySelectorAll('.payment-method').forEach(method => {
+                        method.classList.remove('border-gold', 'bg-gold/10');
+                    });
+                    e.target.closest('.payment-method').classList.add('border-gold', 'bg-gold/10');
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function (e) {
+                switch (e.key) {
+                    case 'Escape':
+                        if (currentScreen !== 'welcome') {
+                            goBack();
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        if (currentScreen === 'products') {
+                            e.preventDefault();
+                            previousProduct();
+                        }
+                        break;
+                    case 'ArrowRight':
+                        if (currentScreen === 'products') {
+                            e.preventDefault();
+                            nextProduct();
+                        }
+                        break;
+                    case 'Enter':
+                        if (currentScreen === 'products') {
+                            e.preventDefault();
+                            const product = products[currentCategory][currentProductIndex];
+                            addToCart(product.id);
+                        }
+                        break;
+                    case 'c':
+                    case 'C':
+                        if (e.ctrlKey || e.metaKey) {
+                            e.preventDefault();
+                            showScreen('cart');
+                        }
+                        break;
+                    case 'h':
+                    case 'H':
+                        if (e.ctrlKey || e.metaKey) {
+                            e.preventDefault();
+                            showScreen('welcome');
+                        }
+                        break;
+                }
+            });
+
+            // Touch gestures for product carousel
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            const productCarousel = document.getElementById('product-carousel');
+
+            productCarousel.addEventListener('touchstart', function (e) {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            productCarousel.addEventListener('touchend', function (e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        // Swipe left - next product
+                        nextProduct();
+                    } else {
+                        // Swipe right - previous product
+                        previousProduct();
+                    }
+                }
+            }
+
+            // Auto-hide navigation on inactivity
+            let inactivityTimer;
+            function resetInactivityTimer() {
+                clearTimeout(inactivityTimer);
+                if (currentScreen !== 'welcome') {
+                    const navBar = document.getElementById('nav-bar');
+                    navBar.style.opacity = '1';
+
+                    inactivityTimer = setTimeout(() => {
+                        navBar.style.opacity = '0.7';
+                    }, 5000);
+                }
+            }
+
+            document.addEventListener('mousemove', resetInactivityTimer);
+            document.addEventListener('touchstart', resetInactivityTimer);
+            document.addEventListener('click', resetInactivityTimer);
+        });
+
+        // Back navigation function
+        function goBack() {
+            switch (currentScreen) {
+                case 'collections':
+                    showScreen('welcome');
+                    break;
+                case 'products':
+                    showScreen('collections');
+                    break;
+                case 'cart':
+                    if (currentCategory) {
+                        showScreen('products', currentCategory);
+                    } else {
+                        showScreen('collections');
+                    }
+                    break;
+                case 'checkout':
+                    showScreen('cart');
+                    break;
+                case 'confirmation':
+                    showScreen('welcome');
+                    break;
+                default:
+                    showScreen('welcome');
+            }
+        }
+
+        // Add visual feedback for interactions
+        function addRippleEffect(element, event) {
+            const ripple = document.createElement('span');
+            const rect = element.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+
+            element.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        // Enhanced product navigation with indicators
+        function updateProductIndicators() {
+            const productList = products[currentCategory];
+            const sidebar = document.querySelector('#products-screen .w-96');
+
+            // Remove existing indicators
+            const existingIndicators = sidebar.querySelector('.product-indicators');
+            if (existingIndicators) {
+                existingIndicators.remove();
+            }
+
+            // Create new indicators
+            const indicators = document.createElement('div');
+            indicators.className = 'product-indicators flex justify-center space-x-2 mb-4';
+
+            productList.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = `w-3 h-3 rounded-full transition-all duration-300 ${index === currentProductIndex
+                    ? 'bg-gold scale-125'
+                    : 'bg-gray-600 hover:bg-gray-500'
+                    }`;
+                dot.onclick = () => goToProduct(index);
+                indicators.appendChild(dot);
+            });
+
+            sidebar.insertBefore(indicators, sidebar.querySelector('#product-info'));
+        }
+
+        function goToProduct(index) {
+            const productList = products[currentCategory];
+            const slides = document.querySelectorAll('#product-carousel > div');
+
+            // Hide current slide
+            slides[currentProductIndex].classList.add('translate-x-full');
+            slides[currentProductIndex].classList.remove('translate-x-0');
+
+            // Show target slide
+            currentProductIndex = index;
+            slides[currentProductIndex].classList.remove('translate-x-full', '-translate-x-full');
+            slides[currentProductIndex].classList.add('translate-x-0');
+
+            updateProductInfo();
+            updateProductIndicators();
+        }
+
+        // Product Popup Functions
+        function openProductPopup(productId) {
+            const product = findProductById(productId);
+            if (!product) return;
+
+            currentPopupProduct = product;
+            currentPopupImageIndex = 0;
+
+            // Show popup
+            const popup = document.getElementById('product-popup');
+            popup.classList.remove('hidden');
+
+            // Load images
+            loadPopupImages(product.images);
+
+            // Load product info
+            loadPopupProductInfo(product);
+
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductPopup() {
+            const popup = document.getElementById('product-popup');
+            popup.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            currentPopupProduct = null;
+        }
+
+        function loadPopupImages(images) {
+            const slider = document.getElementById('popup-image-slider');
+            const dots = document.getElementById('image-dots');
+
+            slider.innerHTML = '';
+            dots.innerHTML = '';
+
+            images.forEach((image, index) => {
+                // Create image slide
+                const slide = document.createElement('div');
+                slide.className = 'w-full h-96 flex-shrink-0';
+                slide.innerHTML = `<img src="${image}" alt="Product Image" class="w-full h-full object-cover">`;
+                slider.appendChild(slide);
+
+                // Create dot indicator
+                const dot = document.createElement('button');
+                dot.className = `w-3 h-3 rounded-full transition-colors ${index === 0 ? 'bg-gold' : 'bg-gray-500'}`;
+                dot.onclick = () => goToPopupImage(index);
+                dots.appendChild(dot);
+            });
+
+            updatePopupImagePosition();
+        }
+
+        function loadPopupProductInfo(product) {
+            const productInfo = document.getElementById('popup-product-info');
+            productInfo.innerHTML = `
+                <div class="mb-6">
+                    <h3 class="font-luxury text-3xl font-bold text-gold mb-3">${product.name}</h3>
+                    <p class="text-gray-300 mb-4">${product.description}</p>
+                    <p class="text-gray-400 text-sm mb-4">${product.details}</p>
+                    <div class="text-3xl font-bold text-gold mb-6">$${product.price.toLocaleString()}</div>
+                </div>
+                
+                <div class="space-y-4 mb-6">
+                    <button onclick="addToCart(${product.id}); closeProductPopup();" 
+                        class="w-full bg-accent hover:bg-accent-light text-white py-4 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                    </button>
+                    
+                    <button onclick="addToCart(${product.id}); showScreen('cart');" 
+                        class="w-full bg-bg-primary text-accent border-2 border-accent py-4 px-6 rounded-lg font-semibold hover:bg-accent hover:text-white transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-bolt mr-2"></i> Buy Now
+                    </button>
+                </div>
+                
+                <div class="text-sm text-gray-400 space-y-2">
+                    <div class="flex justify-between">
+                        <span>Material:</span>
+                        <span>Premium Quality</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Availability:</span>
+                        <span class="text-green-400">In Stock</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Shipping:</span>
+                        <span>Free Worldwide</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Returns:</span>
+                        <span>30 Days</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function previousPopupImage() {
+            if (!currentPopupProduct) return;
+            currentPopupImageIndex = currentPopupImageIndex > 0 ? currentPopupImageIndex - 1 : currentPopupProduct.images.length - 1;
+            updatePopupImagePosition();
+        }
+
+        function nextPopupImage() {
+            if (!currentPopupProduct) return;
+            currentPopupImageIndex = currentPopupImageIndex < currentPopupProduct.images.length - 1 ? currentPopupImageIndex + 1 : 0;
+            updatePopupImagePosition();
+        }
+
+        function goToPopupImage(index) {
+            currentPopupImageIndex = index;
+            updatePopupImagePosition();
+        }
+
+        function updatePopupImagePosition() {
+            const slider = document.getElementById('popup-image-slider');
+            const dots = document.getElementById('image-dots').children;
+
+            slider.style.transform = `translateX(-${currentPopupImageIndex * 100}%)`;
+
+            // Update dots
+            Array.from(dots).forEach((dot, index) => {
+                dot.className = `w-3 h-3 rounded-full transition-colors ${index === currentPopupImageIndex ? 'bg-gold' : 'bg-gray-500'}`;
+            });
+        }
+
+        // Helper function to find product by ID
+        function findProductById(id) {
+            for (const category in products) {
+                const product = products[category].find(p => p.id === id);
+                if (product) return product;
+            }
+            return null;
+        }
+
+        // Enhanced Passenger Booking Functions
+        function searchBooking(bookingRef) {
+            const passengerList = document.getElementById('passenger-list');
+            const passengerDropdown = document.getElementById('passenger-dropdown');
+
+            if (!bookingRef || bookingRef.length < 3) {
+                passengerList.classList.add('hidden');
+                return;
+            }
+
+            const booking = sampleBookings[bookingRef.toUpperCase()];
+            if (booking) {
+                passengerDropdown.innerHTML = '';
+                booking.forEach(passenger => {
+                    const option = document.createElement('div');
+                    option.className = 'p-4 hover:bg-luxury-gray cursor-pointer border-b border-gray-600 last:border-b-0 transition-colors';
+                    option.innerHTML = `
+                        <div class="font-semibold text-white">${passenger.name}</div>
+                        <div class="text-sm text-gray-400">Flight ${passenger.flight} â€¢ Seat ${passenger.seat} â€¢ ${passenger.destination}</div>
+                        <div class="text-xs text-gold mt-1">${passenger.email || 'john.doe@email.com'} â€¢ ${passenger.phone || '+1 234 567 8900'}</div>
+                    `;
+                    option.onclick = () => selectPassenger(passenger);
+                    passengerDropdown.appendChild(option);
+                });
+                passengerList.classList.remove('hidden');
+            } else {
+                passengerList.classList.add('hidden');
+                // Show "no results" message
+                passengerDropdown.innerHTML = `
+                    <div class="p-4 text-center text-gray-400">
+                        <i class="fas fa-search mb-2"></i>
+                        <div>No booking found with reference "${bookingRef}"</div>
+                        <div class="text-xs mt-1">Try: ABC123, DEF456, or GHI789</div>
+                    </div>
+                `;
+                passengerList.classList.remove('hidden');
+            }
+        }
+
+        function selectPassenger(passenger) {
+            selectedPassenger = passenger;
+
+            // Show selected passenger display
+            document.getElementById('display-name').textContent = passenger.name;
+            document.getElementById('display-details').textContent = `Flight ${passenger.flight} â€¢ Seat ${passenger.seat} â€¢ ${passenger.destination}`;
+            document.getElementById('display-contact').textContent = `${passenger.email} â€¢ ${passenger.phone}`;
+            document.getElementById('selected-passenger-display').classList.remove('hidden');
+
+            // Hide passenger list and clear search
+            document.getElementById('passenger-list').classList.add('hidden');
+            document.getElementById('booking-ref').value = '';
+
+            // Hide customer form if it was shown
+            document.getElementById('customer-form').classList.add('hidden');
+
+            // Update button text
+            document.getElementById('manual-entry-btn').innerHTML = '<i class="fas fa-edit mr-1"></i> Edit Details';
+
+            // Show success message
+            showNotification('Passenger details loaded successfully!', 'success');
+        }
+
+        function toggleManualEntry() {
+            const customerForm = document.getElementById('customer-form');
+            const manualBtn = document.getElementById('manual-entry-btn');
+
+            if (customerForm.classList.contains('hidden')) {
+                // Show manual entry form
+                customerForm.classList.remove('hidden');
+                manualBtn.innerHTML = '<i class="fas fa-times mr-1"></i> Cancel';
+
+                // If passenger was selected, populate form with their details
+                if (selectedPassenger) {
+                    document.getElementById('customer-name').value = selectedPassenger.name;
+                    document.getElementById('customer-email').value = selectedPassenger.email;
+                    document.getElementById('customer-phone').value = selectedPassenger.phone;
+                    document.getElementById('flight-number').value = selectedPassenger.flight;
+                    document.getElementById('seat-number').value = selectedPassenger.seat;
+                    document.getElementById('destination').value = selectedPassenger.destination;
+                    document.getElementById('flight-details').classList.remove('hidden');
+                }
+
+                // Focus on name field
+                document.getElementById('customer-name').focus();
+                showNotification('Enter customer details manually', 'info');
+            } else {
+                // Hide manual entry form
+                customerForm.classList.add('hidden');
+                document.getElementById('flight-details').classList.add('hidden');
+
+                if (selectedPassenger) {
+                    manualBtn.innerHTML = '<i class="fas fa-edit mr-1"></i> Edit Details';
+                } else {
+                    manualBtn.innerHTML = '<i class="fas fa-edit mr-1"></i> Enter Manually';
+                }
+            }
+        }
+
+        function clearSelectedPassenger() {
+            selectedPassenger = null;
+            document.getElementById('selected-passenger-display').classList.add('hidden');
+            document.getElementById('customer-form').classList.add('hidden');
+            document.getElementById('flight-details').classList.add('hidden');
+            document.getElementById('manual-entry-btn').innerHTML = '<i class="fas fa-edit mr-1"></i> Enter Manually';
+
+            // Clear form fields
+            document.getElementById('customer-name').value = '';
+            document.getElementById('customer-email').value = '';
+            document.getElementById('customer-phone').value = '';
+            document.getElementById('flight-number').value = '';
+            document.getElementById('seat-number').value = '';
+            document.getElementById('destination').value = '';
+
+            showNotification('Passenger selection cleared', 'info');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-8 z-50 px-6 py-4 rounded-xl shadow-2xl transform translate-x-full transition-all duration-300 ${type === 'success' ? 'bg-green-600 text-white' :
+                type === 'error' ? 'bg-red-600 text-white' :
+                    'bg-gold text-luxury-dark'
+                }`;
+
+            notification.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Animate out and remove
+            setTimeout(() => {
+                notification.style.transform = 'translateX(full)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+
+    <style>
+        .screen {
+            display: none;
+            transition: all 0.3s ease-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .payment-method.selected {
+            border-color: #D4AF37 !important;
+            background-color: rgba(212, 175, 55, 0.1) !important;
+        }
+
+        /* Custom animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulseGold {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+            }
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced hover effects */
+        .nav-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        /* Product indicators */
+        .product-indicators button {
+            transition: all 0.3s ease;
+        }
+
+        .product-indicators button:hover {
+            transform: scale(1.2);
+        }
+
+        /* Loading states */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Custom scrollbar */
+
+
+        ::-webkit-scrollbar-track {
+            background: #cacaca;
+        }
+
+
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F4E4BC;
+        }
+
+        /* Screen transitions */
+        .screen-enter {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .screen-exit {
+            animation: fadeOut 0.3s ease-out;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        /* Accessibility improvements */
+        .focus-visible {
+            outline: 2px solid #D4AF37;
+            outline-offset: 2px;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .screen {
+                padding-top: 80px;
+            }
+
+            #nav-bar {
+                padding: 12px 16px;
+            }
+
+            .breadcrumb {
+                display: none;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .text-gold {
+                color: #FFD700 !important;
+            }
+
+            .bg-gold {
+                background-color: #FFD700 !important;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Line clamp utility */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Product grid enhancements */
+        .product-grid-item {
+            transition: all 0.3s ease;
+        }
+
+        .product-grid-item:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Popup overlay */
+        #product-popup {
+            backdrop-filter: blur(8px);
+        }
+
+        /* Image slider */
+        #popup-image-slider {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</body>
+
+</html>
