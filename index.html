@@ -427,7 +427,7 @@
                     class="flex items-center gap-4 text-accent hover:text-accent-light transition-colors">
                     <i class="fas fa-shopping-cart text-xl"></i>
                     <span class="font-semibold">View Cart (<span id="cart-count">0</span>)</span>
-                    <span id="cart-total" class="text-text-primary">$0.00</span>
+                    <span id="cart-total" class="text-text-primary">AED 0.00</span>
                 </button>
             </div>
         </div>
@@ -536,16 +536,16 @@ Cart Review -->
                     <div class="border-t border-border-light pt-4">
                         <div class="flex justify-between mb-2">
                             <span class="text-text-secondary">Subtotal</span>
-                            <span id="subtotal" class="text-text-primary">$0.00</span>
+                            <span id="subtotal" class="text-text-primary">AED 0.00</span>
                         </div>
                         <div class="flex justify-between mb-2">
                             <span class="text-text-secondary">Tax</span>
-                            <span id="tax" class="text-text-primary">$0.00</span>
+                            <span id="tax" class="text-text-primary">AED 0.00</span>
                         </div>
                         <div
                             class="flex justify-between text-xl font-bold text-accent border-t border-border-light pt-2">
                             <span>Total</span>
-                            <span id="total">$0.00</span>
+                            <span id="total">AED 0.00</span>
                         </div>
                     </div>
 
@@ -712,7 +712,7 @@ Cart Review -->
                 <!-- Complete Order -->
                 <button onclick="showScreen('confirmation')"
                     class="w-full bg-accent text-white px-8 py-6 rounded-lg text-xl font-bold hover:bg-accent-light transition-all transform hover:scale-105 shadow-lg">
-                    Complete Order - <span id="final-total">$0.00</span>
+                    Complete Order - <span id="final-total">AED 0.00</span>
                 </button>
             </div>
         </div>
@@ -1190,7 +1190,7 @@ Cart Review -->
                         <p class="text-text-secondary text-sm mb-3 line-clamp-2">${product.description}</p>
                         
                         <div class="flex items-center justify-between mb-4">
-                            <span class="text-xl font-bold text-accent">$${product.price.toLocaleString()}</span>
+                            <span class="text-xl font-bold text-accent">AED ${product.price.toLocaleString()}</span>
                     
                         </div>
                         
@@ -1216,7 +1216,7 @@ Cart Review -->
                 <div class="mb-6">
                     <h3 class="font-luxury text-3xl font-bold text-gold mb-2">${product.name}</h3>
                     <p class="text-gray-300 mb-4">${product.description}</p>
-                    <div class="text-2xl font-bold text-gold">$${product.price.toLocaleString()}</div>
+                    <div class="text-2xl font-bold text-gold">AED ${product.price.toLocaleString()}</div>
                 </div>
                 
                 <div class="flex gap-4">
@@ -1353,7 +1353,7 @@ Cart Review -->
                         <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
                         <div class="flex-1">
                             <h4 class="font-semibold text-text-primary">${item.name}</h4>
-                            <p class="text-text-secondary">$${item.price.toLocaleString()}</p>
+                            <p class="text-text-secondary">AED ${item.price.toLocaleString()}</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <button onclick="updateQuantity(${item.id}, -1)" class="bg-accent text-white w-8 h-8 rounded-lg hover:bg-accent transition-colors">-</button>
@@ -1394,16 +1394,16 @@ Cart Review -->
             const tax = subtotal * 0.08; // 8% tax
             const total = subtotal + tax;
 
-            document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString()}`;
-            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('total').textContent = `$${total.toLocaleString()}`;
+            document.getElementById('subtotal').textContent = `AED ${subtotal.toLocaleString()}`;
+            document.getElementById('tax').textContent = `AED ${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `AED ${total.toLocaleString()}`;
         }
 
         function updateCheckoutTotal() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const tax = subtotal * 0.08;
             const total = subtotal + tax;
-            document.getElementById('final-total').textContent = `$${total.toLocaleString()}`;
+            document.getElementById('final-total').textContent = `AED ${total.toLocaleString()}`;
         }
 
         function generateOrderNumber() {
@@ -1669,7 +1669,7 @@ Cart Review -->
                     <h3 class="font-luxury text-3xl font-bold text-gold mb-3">${product.name}</h3>
                     <p class="text-gray-300 mb-4">${product.description}</p>
                     <p class="text-gray-400 text-sm mb-4">${product.details}</p>
-                    <div class="text-3xl font-bold text-gold mb-6">$${product.price.toLocaleString()}</div>
+                    <div class="text-3xl font-bold text-gold mb-6">AED ${product.price.toLocaleString()}</div>
                 </div>
                 
                 <div class="space-y-4 mb-6">
@@ -1758,8 +1758,8 @@ Cart Review -->
                     option.className = 'p-4 hover:bg-luxury-gray cursor-pointer border-b border-gray-600 last:border-b-0 transition-colors';
                     option.innerHTML = `
                         <div class="font-semibold text-white">${passenger.name}</div>
-                        <div class="text-sm text-gray-400">Flight ${passenger.flight} â€¢ Seat ${passenger.seat} â€¢ ${passenger.destination}</div>
-                        <div class="text-xs text-gold mt-1">${passenger.email || 'john.doe@email.com'} â€¢ ${passenger.phone || '+1 234 567 8900'}</div>
+                        <div class="text-sm text-gray-400">Flight ${passenger.flight}  Seat ${passenger.seat}  ${passenger.destination}</div>
+                        <div class="text-xs text-gold mt-1">${passenger.email || 'john.doe@email.com'}  ${passenger.phone || '+1 234 567 8900'}</div>
                     `;
                     option.onclick = () => selectPassenger(passenger);
                     passengerDropdown.appendChild(option);
