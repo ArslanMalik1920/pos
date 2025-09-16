@@ -441,11 +441,7 @@
             <div class="flex h-full">
                 <!-- Image Gallery -->
                 <div class="flex-1 relative">
-                    <button onclick="closeProductPopup()"
-                        class="absolute top-4 right-4 z-10 bg-bg-secondary hover:bg-border-light text-text-primary p-3 rounded-lg transition-all">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-
+             
                     <div id="popup-image-container" class="h-96 relative overflow-hidden">
                         <div id="popup-image-slider" class="flex transition-transform duration-300">
                             <!-- Images will be inserted here -->
@@ -469,7 +465,12 @@
                 </div>
 
                 <!-- Product Details -->
-                <div class="w-96 p-8  bg-bg-secondary">
+                <div class="w-96 p-8  bg-bg-secondary relative">
+                           <button onclick="closeProductPopup()"
+                        class="absolute top-4 right-4 z-10 bg-bg-secondary hover:bg-border-light text-text-primary p-3 rounded-lg transition-all">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+
                     <div id="popup-product-info">
                         <!-- Product info will be inserted here -->
                     </div>
@@ -1190,9 +1191,7 @@ Cart Review -->
                         
                         <div class="flex items-center justify-between mb-4">
                             <span class="text-xl font-bold text-accent">$${product.price.toLocaleString()}</span>
-                            <button onclick="openProductPopup(${product.id})" class="text-text-secondary hover:text-accent transition-colors">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
+                    
                         </div>
                         
                         <!-- Always Visible Add to Cart Button -->
@@ -1666,6 +1665,7 @@ Cart Review -->
             const productInfo = document.getElementById('popup-product-info');
             productInfo.innerHTML = `
                 <div class="mb-6">
+                    
                     <h3 class="font-luxury text-3xl font-bold text-gold mb-3">${product.name}</h3>
                     <p class="text-gray-300 mb-4">${product.description}</p>
                     <p class="text-gray-400 text-sm mb-4">${product.details}</p>
@@ -1673,10 +1673,7 @@ Cart Review -->
                 </div>
                 
                 <div class="space-y-4 mb-6">
-                    <button onclick="addToCart(${product.id}); closeProductPopup();" 
-                        class="w-full bg-accent hover:bg-accent-light text-white py-4 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
-                        <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
-                    </button>
+                
                     
                     <button onclick="addToCart(${product.id}); showScreen('cart');" 
                         class="w-full bg-bg-primary text-accent border-2 border-accent py-4 px-6 rounded-lg font-semibold hover:bg-accent hover:text-white transition-all duration-300 transform hover:scale-105">
