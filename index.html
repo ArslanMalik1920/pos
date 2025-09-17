@@ -239,6 +239,46 @@
                 background-position: 200% 0;
             }
         }
+
+
+        .welcome-screen-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .welcome-screen-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 114, 54, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 114, 54, 0.678) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            filter: blur(5px);
+            /* light orange with 10% opacity */
+            z-index: 1;
+        }
     </style>
 </head>
 
@@ -262,17 +302,27 @@
 
     <!-- Welcome Screen -->
     <div id="welcome-screen" class="screen welcome-screen-bg active min-h-screen flex flex-col">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="videos/bg-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Orange Overlay -->
+        <div class="video-overlay"></div>
+
         <!-- Hero Section -->
         <div class="relative flex-1 flex items-center justify-center min-h-screen">
             <!-- Content -->
             <div class="relative z-10 text-center mobile-padding px-4 sm:px-8 w-full max-w-4xl mx-auto">
                 <div class="mobile-mb-8 mb-12 flex flex-col gap-4 items-center">
                     <!-- <h1 class="luxury-title font-luxury mobile-text-4xl sm:text-6xl lg:text-8xl font-bold mb-4 sm:mb-6">
-                        LUXE</h1> -->
+                    LUXE</h1> -->
                     <img style="width: 250px;" src="https://www.jetex.com/wp-content/uploads/2023/04/Jetex-Logo.svg"
-                        alt="" srcset="">
-                    <p class="mobile-text-lg sm:text-xl lg:text-2xl text-text-secondary font-light tracking-wide">
-                        Curated Excellence</p>
+                        alt="">
+                    <p class="mobile-text-lg sm:text-xl lg:text-2xl text-white font-light tracking-wide">
+                        Curated Excellence
+                    </p>
                 </div>
 
                 <div class="flex justify-center">
@@ -441,7 +491,7 @@
             <div class="flex h-full">
                 <!-- Image Gallery -->
                 <div class="flex-1 relative">
-             
+
                     <div id="popup-image-container" class="h-96 relative overflow-hidden">
                         <div id="popup-image-slider" class="flex transition-transform duration-300">
                             <!-- Images will be inserted here -->
@@ -466,7 +516,7 @@
 
                 <!-- Product Details -->
                 <div class="w-96 p-8  bg-bg-secondary relative">
-                           <button onclick="closeProductPopup()"
+                    <button onclick="closeProductPopup()"
                         class="absolute top-4 right-4 z-10 bg-bg-secondary hover:bg-border-light text-text-primary p-3 rounded-lg transition-all">
                         <i class="fas fa-times text-xl"></i>
                     </button>
